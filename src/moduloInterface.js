@@ -1,22 +1,25 @@
 import userLogin from './moduloDados.js';
+import comunicacaoModal from './moduloComunicacao.js';
 
-class ControllerUserLogin{
-    constructor(status){
+class ControllerUserLogin {
+    constructor(status) {
         this.status = status;
     }
-    checkLogin(){
+    checkLogin() {
         this.status = true;
     }
-    loginInfo(user, senha){
-        let infoCheck = userLogin.find((userLogin)=> userLogin.username === user);
-        if(!infoCheck){
-            alert("Usuario n existe");
+    loginInfo(user, senha) {
+        let infoCheck = userLogin.find((userLogin) => userLogin.username === user);
+        if (!user || user === "" || !senha || senha === "") {
+            return comunicacaoModal.find(i => i.idModal === "camposVazios1");
+        } else if (!infoCheck) {
+            return comunicacaoModal.find(i => i.idModal === "usuarioNaoExiste1");
         } else {
-            if(infoCheck.senha === senha){
+            if (infoCheck.senha === senha) {
                 this.checkLogin();
-                alert(`Você está ${this.status}`);
+                return comunicacaoModal.find(i => i.idModal === "loginExecutado1");
             } else {
-                alert("Não logou");
+                return comunicacaoModal.find(i => i.idModal === "falhaLogin1");
             }
         }
     }
