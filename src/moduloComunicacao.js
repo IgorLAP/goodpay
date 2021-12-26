@@ -9,7 +9,7 @@ const comunicacaoModal = [
     {
         idModal: 'usuarioNaoExiste1', 
         title: "Não encontramos o usuário", 
-        bodyModal: "Não é possível encontra o usuário solicitado!", 
+        bodyModal: "Não é possível encontrar o usuário solicitado!", 
         b1: "Fechar",
         b2: "Criar"
     },
@@ -26,6 +26,13 @@ const comunicacaoModal = [
         bodyModal: "Erro nas informações dadas ao sistema Good Pay!", 
         b1: "Fechar",
         b2: "Esqueci a senha"
+    },
+    {
+        idModal: 'tentativasDemais1',
+        title: 'Esqueceu seu login?',
+        bodyModal: ``,
+        b1: "Fechar",
+        b2: "Recuperar Senha"
     }
 ];
 

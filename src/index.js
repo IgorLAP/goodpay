@@ -1,19 +1,30 @@
-import controllerUserLogin from './moduloInterface.js';
+import controlerUserLogin from "./moduloControlerLogin.js";
+import controleRotasApp from "./moduloControleRotas.js";
 
-var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+//Trazendo elementos do Bootstrap para uso da main Javascript.
+var myModal = new bootstrap.Modal(document.getElementById('myModal'))
+//Ordem para executar e validar o Login.
+const entrarUsuario = document.getElementById("btnEntrar");
+entrarUsuario.addEventListener("click", (event) => {
+    let user = document.getElementById("usuario").value,
+        senha = document.getElementById("senha").value;
+    let alertModal = controlerUserLogin.loginInfo(user, senha);
 
-const entrarUsuario = document.getElementById("btnLogin");
-entrarUsuario.addEventListener("click", (e)=>{
-    let nome = document.getElementById("user").value,
-    senha = document.getElementById("password").value;
-    let logAttempt = controllerUserLogin.loginInfo(nome, senha);
-    modalResponse(logAttempt);
-});
+    document.getElementById("titleModal").innerHTML = alertModal.title;
+    document.getElementById("bodyModal").innerHTML = alertModal.bodyModal;
+    document.getElementById("btnModalClose").innerHTML = alertModal.b1;
+    document.getElementById("btnModalSave").innerHTML = alertModal.b2;
 
-function modalResponse(msg){
-    document.querySelector(".modal-title").innerHTML = msg.title;
-    document.querySelector(".modal-body p").innerHTML = msg.bodyModal;
-    document.querySelector(".modal-content .b1").innerHTML = msg.b1;
-    document.querySelector(".modal-content .b2").innerHTML = msg.b2;
     myModal.show();
-}
+    if (alertModal.idModal !== "tentativasDemais1") {
+        setTimeout(carregarPagina, 2000);
+        function carregarPagina() {
+            window.location.href = controleRotasApp.validaRota(localStorage.status, alertModal.idModal);
+        }
+    }
+});
+//Ordem para criar um novo usuário.
+const novoUsuario = document.getElementById("btnNovoUsuario");
+novoUsuario.addEventListener("click", (event) => {
+    window.location.href = controleRotasApp.validaRota("false", "usuarioNaoExiste1");
+});
